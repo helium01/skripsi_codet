@@ -2,18 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\siswa;
+use App\Models\status;
 use Illuminate\Http\Request;
 
-class SiswaController extends Controller
+class StatusController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $data=siswa::simplePaginate(10);
-        return view('admin.siswa.home',compact('data'));
         //
     }
 
@@ -22,7 +20,6 @@ class SiswaController extends Controller
      */
     public function create()
     {
-        return view('admin.siswa.create');
         //
     }
 
@@ -31,15 +28,13 @@ class SiswaController extends Controller
      */
     public function store(Request $request)
     {
-        siswa::create($request->all());
-        return redirect('/siswa');
         //
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(siswa $siswa)
+    public function show(status $status)
     {
         //
     }
@@ -47,29 +42,24 @@ class SiswaController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(siswa $siswa)
+    public function edit(status $status)
     {
-        return view('admin.siswa.update',compact('siswa'));
         //
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, siswa $siswa)
+    public function update(Request $request, status $status)
     {
-        siswa::update($request->all());
-        return redirect('/siswa');
         //
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(siswa $siswa)
+    public function destroy(status $status)
     {
-        $siswa->delete();
-        return redirect('/siswa');
         //
     }
 }

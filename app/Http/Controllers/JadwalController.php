@@ -12,6 +12,8 @@ class JadwalController extends Controller
      */
     public function index()
     {
+        $data=jadwal::simplePaginate(10);
+        return view('admin.jadwal.home',compact('data'));
         //
     }
 
@@ -20,6 +22,7 @@ class JadwalController extends Controller
      */
     public function create()
     {
+        return view('admin.jadwal.create');
         //
     }
 
@@ -28,6 +31,8 @@ class JadwalController extends Controller
      */
     public function store(Request $request)
     {
+        jadwal::create($request->all());
+        return redirect('/jadwal');
         //
     }
 
@@ -44,6 +49,7 @@ class JadwalController extends Controller
      */
     public function edit(jadwal $jadwal)
     {
+        return view('admin.jadwal.update',compact('jadwal'));
         //
     }
 
@@ -52,6 +58,8 @@ class JadwalController extends Controller
      */
     public function update(Request $request, jadwal $jadwal)
     {
+        jadwal::update($request->all());
+        return redirect('/jadwal');
         //
     }
 
@@ -60,6 +68,8 @@ class JadwalController extends Controller
      */
     public function destroy(jadwal $jadwal)
     {
+        $jadwal->delete();
+        return redirect('/jadwal');
         //
     }
 }
