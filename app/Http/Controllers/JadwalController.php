@@ -10,6 +10,10 @@ class JadwalController extends Controller
     /**
      * Display a listing of the resource.
      */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function index()
     {
         $data=jadwal::simplePaginate(10);
@@ -58,7 +62,7 @@ class JadwalController extends Controller
      */
     public function update(Request $request, jadwal $jadwal)
     {
-        jadwal::update($request->all());
+        $jadwal->update($request->all());
         return redirect('/jadwal');
         //
     }

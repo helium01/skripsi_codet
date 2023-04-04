@@ -4,12 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Models\siswa;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class SiswaController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function index()
     {
         $data=siswa::simplePaginate(10);
@@ -31,9 +36,21 @@ class SiswaController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request);
         siswa::create($request->all());
         return redirect('/siswa');
         //
+    }
+    public function selesai(){
+        $siswa=siswa::where('status','request')->get();
+        foreach($siswa as $sw){
+            $sw->update([
+                'status'=>'Response'
+            ]);
+           
+        }
+        // dd($siswa);
+        return redirect('/siswa');
     }
 
     /**
@@ -58,7 +75,7 @@ class SiswaController extends Controller
      */
     public function update(Request $request, siswa $siswa)
     {
-        siswa::update($request->all());
+        $siswa->update($request->all());
         return redirect('/siswa');
         //
     }
@@ -71,5 +88,12 @@ class SiswaController extends Controller
         $siswa->delete();
         return redirect('/siswa');
         //
+    }
+
+    public function tambah_jari(siswa $siswa){
+        return view('admin.siswa.tambah_jari',compact('siswa'));
+    }
+    public function edit_jari(siswa $siswa){
+        return view('admin.siswa.edit_jari',compact('siswa'));
     }
 }

@@ -12,6 +12,15 @@ class AbsensiController extends Controller
      */
     public function index()
     {
+        $data=absensi::join('siswas','absensis.id_siswa','=','siswas.id')
+        ->select('siswas.id','siswas.nama_siswa','absensis.*','siswas.alamat','siswas.no_telp_ortu','siswas.kelas')
+        ->orderBy('updated_at','desc')
+        ->simplePaginate(10);
+        $siswa_teladan=absensi::join('siswas','absensis.id_siswa','=','siswas.id')
+        ->select('siswas.id','siswas.nama_siswa','absensis.*','siswas.alamat','siswas.no_telp_ortu','siswas.kelas')
+        ->orderBy('updated_at','asc')
+        ->limit(1)->get();
+        return view('admin.absensi.home',compact('data','siswa_teladan'));
         //
     }
 
